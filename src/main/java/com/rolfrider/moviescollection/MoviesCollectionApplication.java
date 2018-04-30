@@ -1,13 +1,11 @@
 package com.rolfrider.moviescollection;
 
-import com.rolfrider.moviescollection.Entity.Movie;
-import com.rolfrider.moviescollection.Repository.MoviesRepository;
+import com.rolfrider.moviescollection.model.Movie;
+import com.rolfrider.moviescollection.model.MoviesRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.Arrays;
 
 @SpringBootApplication
 public class MoviesCollectionApplication {

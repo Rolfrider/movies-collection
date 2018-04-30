@@ -1,7 +1,7 @@
 package com.rolfrider.moviescollection;
 
-import com.rolfrider.moviescollection.Entity.Movie;
-import com.rolfrider.moviescollection.Repository.MoviesRepository;
+import com.rolfrider.moviescollection.model.Movie;
+import com.rolfrider.moviescollection.model.MoviesRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,8 +33,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
 @WebAppConfiguration
 public class MoviesCollectionApplicationTests {
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-            MediaType.APPLICATION_JSON.getSubtype(),
+    private MediaType contentType = new MediaType("application",
+            "hal+json",
             Charset.forName("utf8"));
 
     private MockMvc mockMvc;
@@ -82,9 +82,10 @@ public class MoviesCollectionApplicationTests {
         mockMvc.perform(get("/movies/" + this.movieList.get(0).getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(this.movieList.get(0).getId().intValue())))
-                .andExpect(jsonPath("$.title", is("Shrek")))
-                .andExpect(jsonPath("$.description", is("A cartoon movie")));
+                .andExpect(jsonPath("$.movie.id", is(this.movieList.get(0).getId().intValue())))
+                .andExpect(jsonPath("$.movie.title", is("Shrek")))
+                .andExpect(jsonPath("$.movie.description", is("A cartoon movie")))
+                .andExpect(jsonPath("$._links.self.href", containsString("/movies/" + movieList.get(0).getId())));
     }
 
     @Test
@@ -92,13 +93,13 @@ public class MoviesCollectionApplicationTests {
         mockMvc.perform(get("/movies"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(this.movieList.get(0).getId().intValue())))
-                .andExpect(jsonPath("$[0].title", is("Shrek")))
-                .andExpect(jsonPath("$[0].description", is("A cartoon movie")))
-                .andExpect(jsonPath("$[1].id", is(this.movieList.get(1).getId().intValue())))
-                .andExpect(jsonPath("$[1].title", is("Lobster")))
-                .andExpect(jsonPath("$[1].description", is("A weird movie")));
+                .andExpect(jsonPath("$._embedded.movieResourceList", hasSize(2)))
+                .andExpect(jsonPath("$._embedded.movieResourceList[0].movie.id", is(this.movieList.get(0).getId().intValue())))
+                .andExpect(jsonPath("$._embedded.movieResourceList[0].movie.title", is("Shrek")))
+                .andExpect(jsonPath("$._embedded.movieResourceList[0].movie.description", is("A cartoon movie")))
+                .andExpect(jsonPath("$._embedded.movieResourceList[1].movie.id", is(this.movieList.get(1).getId().intValue())))
+                .andExpect(jsonPath("$._embedded.movieResourceList[1].movie.title", is("Lobster")))
+                .andExpect(jsonPath("$._embedded.movieResourceList[1].movie.description", is("A weird movie")));
     }
 
     @Test

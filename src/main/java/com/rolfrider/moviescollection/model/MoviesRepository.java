@@ -1,7 +1,6 @@
-package com.rolfrider.moviescollection.Repository;
+package com.rolfrider.moviescollection.model;
 
 
-import com.rolfrider.moviescollection.Entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

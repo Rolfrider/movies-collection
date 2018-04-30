@@ -1,4 +1,4 @@
-package com.rolfrider.moviescollection.Entity;
+package com.rolfrider.moviescollection.model;
 
 
 import javax.persistence.Entity;
@@ -16,6 +16,7 @@ public class Movie {
 
     private String description;
 
+
     public Movie(){}
 
     public Movie(String title, String description) {
@@ -30,6 +31,7 @@ public class Movie {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getTitle() {
         return title;

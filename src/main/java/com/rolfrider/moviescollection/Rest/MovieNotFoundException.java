@@ -1,4 +1,4 @@
-package com.rolfrider.moviescollection.Exception;
+package com.rolfrider.moviescollection.Rest;
 
 
 import org.springframework.http.HttpStatus;
