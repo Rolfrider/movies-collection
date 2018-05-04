@@ -1,9 +1,12 @@
 package com.rolfrider.moviescollection.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Movie {
@@ -16,10 +19,14 @@ public class Movie {
 
     private String description;
 
+    @JsonIgnore
+    @ManyToOne
+    private Account account;
 
     public Movie(){}
 
-    public Movie(String title, String description) {
+    public Movie( final Account account, final String title, final String description) {
+        this.account = account;
         this.title = title;
         this.description = description;
     }
@@ -28,24 +35,15 @@ public class Movie {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Account getAccount() {
+        return account;
     }
-
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

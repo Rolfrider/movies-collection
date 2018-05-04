@@ -9,14 +9,16 @@ public class MovieResource extends ResourceSupport {
 
     private final Movie movie;
 
-    public MovieResource(Movie movie){
+    public MovieResource(Movie movie) {
+        String username = movie.getAccount().getUsername();
         this.movie = movie;
-        this.add(linkTo(MovieRestController.class).withRel("movies"));
-        this.add(linkTo(methodOn(MovieRestController.class)
-                .readMovie(movie.getId())).withSelfRel());
+        this.add(linkTo(MovieRestController.class, username).withRel("movies"));
+        this.add(linkTo(methodOn(MovieRestController.class,username)
+                .readMovie(username,movie.getId())).withSelfRel());
     }
 
     public Movie getMovie() {
         return movie;
     }
 }
+
