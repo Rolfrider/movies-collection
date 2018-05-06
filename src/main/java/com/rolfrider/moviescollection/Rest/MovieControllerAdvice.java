@@ -12,9 +12,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class MovieControllerAdvice {
 
     @ResponseBody
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    VndErrors userNotFoundExceptionHandler(UserNotFoundException ex) {
+        return new VndErrors("error", ex.getMessage());
+    }
+
+    @ResponseBody
     @ExceptionHandler(MovieNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    VndErrors movieNotFoundExeptionHandler(MovieNotFoundException ex){
+    VndErrors movieNotFoundExceptionHandler(MovieNotFoundException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 }
